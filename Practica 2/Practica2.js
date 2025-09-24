@@ -1,31 +1,18 @@
-//Ejercicio a
-const persona = {
-    nombre: "Ana Paulina",
-    edad: 18,
-    direccion: {
-        ciudad: "Qro",
-        pais: "MX"
-    }
-};
-
-//Aplica destructuracion aquì
-const {nombre, edad, direccion: {ciudad} } = persona; 
-
-//Imprime mensaje aqui 
-console.log ("Me llamo " + nombre + ", tengo " + edad + " años"+ " y vivo en "+ ciudad);
-
-
-const productos = [
-  { nombre: "Laptop", precio: 12000 },
-  { nombre: "Mouse", precio: 250 },
-  { nombre: "Teclado", precio: 750 },
-  { nombre: "Monitor", precio: 3000 }
+//Ejercicio c
+const personas = [
+  { nombre: "Ana", edad: 22 },
+  { nombre: "Luis", edad: 35 },
+  { nombre: "María", edad: 28 }
 ];
-//Codigo
-//Productos con precio > 1000
-const filtrados = productos.filter(p => p.precio > 1000);
 
-//Arreglo con solo nombres
-const nombres = filtrados.map(p => p.nombre);
+const personaEncontrada = personas.find(persona => persona.nombre === "Luis");
 
-console.log(nombres); // ["Laptop", "Monitor"]
+const { nombre, edad } = personaEncontrada;
+console.log("Encontré a " + nombre + ", tiene " + edad + " años.");
+personas.forEach(({ nombre, edad }) => {
+  console.log("Nombre: " + nombre + ", Edad: " + edad);
+}
+);
+
+const totalEdades = personas.reduce((acumulador, persona) => acumulador + persona.edad, 0);
+console.log("La suma total de las edades es: " + totalEdades);
