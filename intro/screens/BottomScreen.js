@@ -1,6 +1,6 @@
 import { Text, StyleSheet, View, Button } from 'react-native'
 
-export default function BottomSheetScreen (){
+export default function BottomScreen (){
     return (
       <View>
         <Text>Equipo8</Text>

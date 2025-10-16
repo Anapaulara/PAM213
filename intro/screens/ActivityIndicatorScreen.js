@@ -1,6 +1,6 @@
 import { Text, StyleSheet, View, Button } from 'react-native'
 
-export default function ActivityIndicadorScreen (){
+export default function ActivityIndicatorScreen (){
     return (
       <View>
         <Text>Equipo5</Text>
