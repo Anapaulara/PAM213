@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ScrollView, View, Text, StyleSheet, Button } from 'react-native';
 
-export default function ScrollViewScreen() {
+export default function AppScrollView() {
   const [items, setItems] = useState(["Opción 1", "Opción 2", "Opción 3"]);
 
  // Agregar una nueva opción
