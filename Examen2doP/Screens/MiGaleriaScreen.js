@@ -75,5 +75,71 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  });
+  splashOverlay: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  splashTitle: {
+    color: '#000', 
+    fontSize: 28,
+    fontWeight: 'bold',
+    marginTop: 10,
+  },
+  splashSubtitle: {
+    color: '#000', 
+    fontSize: 16,
+    marginTop: 5,
+  },
+  logo: {
+    width: 160,
+    height: 160,
+    borderRadius: 80,
+    borderWidth: 2,
+    borderColor: '#000',
+  },
+  mainScreen: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+  },
+  formContainer: {
+    backgroundColor: 'rgba(255,255,255,0.8)', 
+    padding: 25,
+    borderRadius: 15,
+    width: '85%',
+    shadowColor: '#000',
+    shadowOpacity: 0.3,
+    shadowRadius: 6,
+    elevation: 8,
+  },
+  titulo: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    color: '#000', 
+    marginBottom: 20,
+    textAlign: 'center',
+  },
+  recuadro: {
+    borderWidth: 1,
+    borderColor: '#000',
+    padding: 10,
+    marginBottom: 15,
+    color: '#000', 
+    borderRadius: 8,
+    backgroundColor: 'rgba(255,255,255,0.9)',
+  },
+  switchContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 25,
+    justifyContent: 'space-between',
+  },
+  textoTerminos: {
+    color: '#000', 
+    fontSize: 16,
+    marginRight: 10,
+  },
+});
 
