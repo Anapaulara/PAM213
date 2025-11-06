@@ -105,7 +105,7 @@ export default function RepasoScreen() {
 
 const styles = StyleSheet.create({
   background: {
-    flex: 1,               // Ocupa toda la pantalla
+    flex: 1,         
     width: '100%',
     height: '100%',
     justifyContent: 'center',

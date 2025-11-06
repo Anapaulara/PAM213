@@ -5,6 +5,7 @@ export default function TextInputScreen (){
   const[nombre, setNombre] = useState ('');
   const[contrasena, setContrasena] = useState('');
   const[multexto,setMultexto] = useState('');
+  
   const MostrarAlerta = () => {
 
   if (nombre.trim () === ''){ //anula espacios en blanco, que no tome en cuenta los espacios en blanco
