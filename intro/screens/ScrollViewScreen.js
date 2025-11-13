@@ -27,7 +27,7 @@ export default function ScrollViewScreen() {
       <ScrollView
         style={styles.scroll}
         contentContainerStyle={styles.content}
-        horizontal={true}
+        //horizontal={true}
         showsVerticalScrollIndicator={false}
         persistentScrollbar={true}
         scrollEnabled={true}

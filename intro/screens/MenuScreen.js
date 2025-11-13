@@ -10,6 +10,7 @@ import FlatListScreen from './FlatListScreen'
 import ModalScreen from './ModalScreen'
 import BottomScreen from './BottomScreen'
 import RepasoScreen from './RepasoScreen'
+import SeccionListScreen from './SeccionListScreen'
 
 export default function MenuScreen() {
 
@@ -30,6 +31,8 @@ export default function MenuScreen() {
         return <ActivityIndicatorScreen/>
       case 'lista':
         return <FlatListScreen/>
+      case 'seccion':
+        return <SeccionListScreen/>
       case 'modal':
         return <ModalScreen/>
       case 'bottom':
@@ -48,6 +51,7 @@ export default function MenuScreen() {
                 <Button color = "pink" title='Pract:ScrollView' onPress={()=>setScreen('scroll')}/>
                 <Button color = "pink" title='Pract:ActivityIndicator' onPress={()=>setScreen('actividad')}/>
                 <Button color = "pink" title='Pract:FlatList' onPress={()=>setScreen('lista')}/>
+                <Button color = "pink" title='Pract:SeccionList' onPress={()=>setScreen('seccion')}/>
                 <Button color = "pink" title='Pract:Modal' onPress={()=>setScreen('modal')}/>
                 <Button color = "pink" title='Pract:Bottom Sheet' onPress={()=>setScreen('bottom')}/>
                 <Button color = "pink" title='Pract:Repaso' onPress={()=>setScreen('repaso')}/>
@@ -71,6 +75,6 @@ const styles = StyleSheet.create({
       marginTop: 15,
       alignItems: 'center',
       justifyContent: 'center',
-      gap: 30,
-  }
+      gap:30,
+ }
 })
