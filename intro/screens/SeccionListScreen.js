@@ -48,6 +48,6 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     paddingHorizontal: 10,
     fontWeight: 'bold',
-  }
+}
 });
 export default SeccionListScreen

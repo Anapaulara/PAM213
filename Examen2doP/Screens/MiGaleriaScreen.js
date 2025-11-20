@@ -55,21 +55,14 @@ export default function MiGaleriaScreen(){
           </View>
         ))}
       </ScrollView>
-
-      <View style={styles.buttonContainer}>
-        <Button title="Agregar opción" color="#4d8a71ff" onPress={agregarOpcion} />
-        <View style={styles.space} />
-        <Button title="Borrar última" color="#d99d4fff" onPress={borrarUltima} />
-      </View>
     </View>
   );
 
 }
 
-
 const styles = StyleSheet.create({
   background: {
-    flex: 1,               // Ocupa toda la pantalla
+    flex: 1,             
     width: '100%',
     height: '100%',
     justifyContent: 'center',

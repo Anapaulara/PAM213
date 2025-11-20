@@ -14,7 +14,7 @@ export default function RepasoScreen() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setMostrarSplash(false); 
-    }, 3000);
+    }, 3000); 
     return () => clearTimeout(timer);
   }, []);
 

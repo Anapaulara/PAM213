@@ -6,6 +6,6 @@ import PrincipalScreen from './Screens/PrincipalScreen';
 export default function App() {
   return (
    //MiGaleriaScreen></MiGaleriaScreen>
-   <PrincipalScreen>
+   <PrincipalScreen></PrincipalScreen>
   );
 }

@@ -6,6 +6,7 @@ export default function ModalScreen(){
   const [descripcion, setDescripcion] = useState(''); 
   const [numfav, setNumFav] = useState (''); 
   const [gasto, setGasto] = useState (true);
+  
   const botonGuardar = () => {
         if (!descripcion || !numfav) {
           if (Platform.OS === "web") {
