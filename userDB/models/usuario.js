@@ -1,19 +1,17 @@
 export class Usuario {
     constructor(id, nombre, fechaCreacion) {
         this.id = id;
-        this.nombre = nombre?.trim() || "";
-        this.fechaCreacion = new Date(fechaCreacion || Date.now()).toISOString();
+        this.nombre = nombre;
+        this.fechaCreacion = fechaCreacion || new Date().toISOString();
+
     }
 
-    static validar(nombre) {
-        if (!nombre || nombre.trim().length === 0) {
-            throw new Error("El nombre no puede estar vacío");
+    //Validaciones del modelo
+    static validar(nombre){
+        if(!nombre ||nombre.trim().lenght === 0){
+            throw new Error("El nombre no debe de tener mas de 50 caracteres y no debe estar vacio");
         }
-
-        if (nombre.trim().length > 50) {
-            throw new Error("El nombre no puede tener más de 50 caracteres");
-        }
-
-        return true;
+        returntrue;
     }
+
 }

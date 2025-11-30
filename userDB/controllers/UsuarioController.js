@@ -1,5 +1,5 @@
-import { Usuario } from '../models/usuario';
-import DatabaseService from '../database/DatabaseService';
+import { Usuario } from "../models/usuario";
+import DataBaseServise from "../database/DatabaseService";
 
 export class UsuarioController {
     constructor() {
@@ -7,15 +7,15 @@ export class UsuarioController {
     }
 
     async initialize() {
-        await DatabaseService.initialize();
+        await DataBaseServise.initialize();
     }
 
     async obtenerUsuarios() {
         try {
-            const data = await DatabaseService.getAll();
+            const data = await DataBaseServise.getAll();
             return data.map(u => new Usuario(u.id, u.nombre, u.fecha_creacion));
         } catch (error) {
-            console.error('Error al obtener usuarios:', error);
+            console.error('Error al obtener los usuarios: ', error);
             throw new Error('No se pudieron cargar los usuarios');
         }
     }
@@ -23,23 +23,50 @@ export class UsuarioController {
     async crearUsuario(nombre) {
         try {
             Usuario.validar(nombre);
+            const nuevoUsuario = await DataBaseServise.add(nombre.trim());
+            this.notifyListeners();
 
-            const nuevoUsuario = await DatabaseService.add(nombre.trim());
-
-            const usuarioModelo = new Usuario(
+            return new Usuario(
                 nuevoUsuario.id,
                 nuevoUsuario.nombre,
                 nuevoUsuario.fecha_creacion
             );
-
-            this.notifyListeners();
-
-            return usuarioModelo;
         } catch (error) {
-            console.error('Error al crear usuario:', error);
+            console.error('Error al crear usuario: ', error);
             throw error;
         }
     }
+
+    async modificarUsuario(id, nombre) {
+        try {
+            Usuario.validar(nombre);
+            const actualizado = await DataBaseServise.modificar(id, nombre);
+            this.notifyListeners();
+
+            return actualizado
+                ? new Usuario(
+                    actualizado.id,
+                    actualizado.nombre,
+                    actualizado.fecha_creacion
+                )
+                : null;
+
+        } catch (error) {
+            console.error('Error al actualizar usuario: ', error);
+            throw error;
+        }
+    }
+
+    async eliminarUsuario(id) {
+        try {
+            await DataBaseServise.eliminar(id);
+            this.notifyListeners();
+        } catch (error) {
+            console.error('Error al eliminar usuario.', error);
+            throw error;
+        }
+    }
+    
 
     addListener(callback) {
         this.listeners.push(callback);

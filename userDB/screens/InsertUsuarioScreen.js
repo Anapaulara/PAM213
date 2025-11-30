@@ -1,23 +1,26 @@
 import { useEffect, useState, useCallback } from 'react';
-import {  View, Text, TextInput, TouchableOpacity, FlatList, StyleSheet, Alert, ActivityIndicator, Platform } from 'react-native';
-
+import { View, Text, TextInput, TouchableOpacity, FlatList, StyleSheet, Alert, ActivityIndicator, Platform, Pressable } from 'react-native';
 import { UsuarioController } from '../controllers/UsuarioController';
+import { Ionicons } from '@expo/vector-icons';
+
+
+const controller = new UsuarioController();
 
 export default function InsertUsuarioScreen() {
-
-  const controller = new UsuarioController(); 
 
   const [usuarios, setUsuarios] = useState([]);
   const [nombre, setNombre] = useState('');
   const [loading, setLoading] = useState(true);
   const [guardando, setGuardando] = useState(false);
+  const [nombreEditar, setNombreEditar] = useState('');
+  const [idEditar, setIdEditar] = useState(null);
 
   const cargarUsuarios = useCallback(async () => {
     try {
       setLoading(true);
       const data = await controller.obtenerUsuarios();
       setUsuarios(data);
-      console.log(`${data.length} usuarios cargados`);
+      console.log(`${data.length} usuarios cargados.`);
     } catch (error) {
       Alert.alert('Error', error.message);
     } finally {
@@ -45,19 +48,29 @@ export default function InsertUsuarioScreen() {
 
     try {
       setGuardando(true);
-
       const usuarioCreado = await controller.crearUsuario(nombre);
-
-      Alert.alert(
-        'Usuario Creado',
-        `"${usuarioCreado.nombre}" guardado con ID: ${usuarioCreado.id}`
-      );
-
+      Alert.alert('Éxito', `Usuario ${usuarioCreado.nombre} creado con ID ${usuarioCreado.id}`);
       setNombre('');
     } catch (error) {
       Alert.alert('Error', error.message);
     } finally {
       setGuardando(false);
+    }
+  };
+
+  const modificar = (item) => {
+    setIdEditar(item.id);
+    setNombreEditar(item.nombre);
+  };
+
+  const GuardarEdicion = async () => {
+    try {
+      await controller.modificarUsuario(idEditar, nombreEditar);
+      Alert.alert("Actualizado", `Actualizado a: ${nombreEditar}`);
+      setIdEditar(null);
+      setNombreEditar('');
+    } catch (error) {
+      Alert.alert('Error:', error.message);
     }
   };
 
@@ -68,16 +81,49 @@ export default function InsertUsuarioScreen() {
       </View>
 
       <View style={styles.userInfo}>
-        <Text style={styles.userName}>{item.nombre}</Text>
-        <Text style={styles.userId}>ID: {item.id}</Text>
-        <Text style={styles.userDate}>
-          {new Date(item.fechaCreacion).toLocaleDateString('es-MX', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-          })}
-        </Text>
+        {idEditar === item.id ? (
+          <>
+            <Text>Editar nombre</Text>
+
+            <TextInput
+              style={styles.input}
+              value={nombreEditar}
+              onChangeText={setNombreEditar}
+            />
+            <View style={styles.boton}>
+            <Pressable onPress={GuardarEdicion}>
+              <Text style={{ color: 'black' }}>Guardar</Text>
+            </Pressable>
+
+            <Pressable onPress={() => setIdEditar(null)}>
+              <Text style={{ color: 'blue' }}>Cancelar</Text>
+            </Pressable>
+            </View>
+          </>
+        ) : (
+          <>
+            <Text style={styles.userName}>{item.nombre}</Text>
+            <Text style={styles.userId}>ID: {item.id}</Text>
+            <Text style={styles.userDate}>
+              Creado: {new Date(item.fechaCreacion).toLocaleString('es-MX', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+              })}
+            </Text>
+           <View style={styles.Icons}>
+  <Pressable style={styles.btnEliminar} onPress={() => controller.eliminarUsuario(item.id)}>
+    <Text style={styles.btnText}>Eliminar</Text>
+  </Pressable>
+
+  <Pressable style={styles.btnModificar} onPress={() => modificar(item)}>
+    <Text style={styles.btnText}>Modificar</Text>
+  </Pressable>
+</View>
+          </>
+        )}
       </View>
+
     </View>
   );
 
@@ -86,7 +132,10 @@ export default function InsertUsuarioScreen() {
 
       <Text style={styles.title}>INSERT & SELECT</Text>
       <Text style={styles.subtitle}>
-        {Platform.OS === 'web' ? 'WEB (LocalStorage)' : `${Platform.OS.toUpperCase()} (SQLite)`}
+        {Platform.OS === 'web'
+          ? 'WEB (LocalStorage)'
+          : `${Platform.OS.toUpperCase()} (SQLite)`
+        }
       </Text>
 
       <View style={styles.insertSection}>
@@ -300,4 +349,45 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#bbb',
   },
+  
+  EliminarText: {
+    color: 'red',
+    fontWeight: 'bold',
+  },
+ Icons:{
+  flexDirection: "row",
+  justifyContent: "space-between",
+  alignItems: "center",
+  width: "100%",
+  paddingHorizontal: -5,
+  
+ },
+ boton:{
+  flexDirection: "row",
+  justifyContent: "space-between",
+  alignItems: "center",
+  width: "100%",
+  paddingHorizontal: -5,
+ },
+ btnEliminar: {
+  backgroundColor: '#ff4d4d',
+  paddingVertical: 6,
+  paddingHorizontal: 14,
+  borderRadius: 6,
+  marginRight: 10,
+},
+
+btnModificar: {
+  backgroundColor: '#4d4dff',
+  paddingVertical: 6,
+  paddingHorizontal: 14,
+  borderRadius: 6,
+},
+
+btnText: {
+  color: 'white',
+  fontWeight: 'bold',
+  fontSize: 14,
+  textAlign: 'center',
+},
 });
