@@ -29,7 +29,7 @@ export class UsuarioController {
             return new Usuario(
                 nuevoUsuario.id,
                 nuevoUsuario.nombre,
-                nuevoUsuario.fecha_creacion
+                nuevoUsuario.fechaCreacion 
             );
         } catch (error) {
             console.error('Error al crear usuario: ', error);
